@@ -1,0 +1,64 @@
+Joining of 4 tables
+
+SELECT 	      D. country,
+		          COUNT (customer_id)
+FROM 		      customer A
+INNER JOIN 	  address B ON A. address_id = B. address_id
+INNER JOIN 	  city C ON B. city_id = C. city_id
+INNER JOIN 	  country D ON C. country_ID = D. country_ID
+GROUP BY 	    country
+ORDER BY 	    COUNT (customer_id) DESC 
+LIMIT 		    10
+
+
+Joining of 4 tables with a WHERE clause
+
+SELECT 		    C. city,
+			        COUNT (customer_id)
+FROM 			    customer A
+INNER JOIN 		address B ON A.address_id = B.address_id
+INNER JOIN 		city C ON B.city_id = C.city_id
+INNER JOIN 		country D ON C. country_id = D. country_id
+WHERE 			  country IN 	('India',
+					    'China',
+					    'United States',
+					    'Japan',
+					    'Mexico',
+					    'Brazil', 
+					    'Russian Federation',
+					    'Philippines',
+					    'Turkey',
+					    'Indonesia')
+GROUP BY 		  city
+ORDER BY		  COUNT (customer_ID) DESC
+LIMIT			    10
+
+
+Joining of 5 tables with GROUP BY and WHERE clauses
+
+SELECT 		    A. customer_id AS customer_number,
+			        B. first_name,
+			        B. last_name,
+			        D. city,
+			        E. country,
+			        SUM (amount) AS total_amount_paid
+FROM 			    payment A
+INNER JOIN 		customer B ON A.customer_id = B.customer_id
+INNER JOIN 		address C ON B.address_id = C.address_id
+INNER JOIN 		city D ON C. city_id = D. city_id
+INNER JOIN 		country E on D. country_id = E. country_id
+WHERE 		    city IN (
+				      'Aurora',
+				      'Pingxiang',
+				      'Baiyin',
+				      'Vitria de Santo Anto',
+				      'Surakarta', 
+				      'Torren',
+				      'Huaian',
+				      'Balurghat',
+				      'Rae Bareli',
+				      'Rockford')
+GROUP BY 		   customer_number, first_name, last_name, city, country
+ORDER BY		   SUM (amount) DESC 
+LIMIT			     5
+
