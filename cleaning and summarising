@@ -1,0 +1,73 @@
+I used this query to check for duplicates in the film table:
+
+SELECT 	  Film_id,
+		      title,
+		      description,
+       		release_year,
+       		language_id,
+       		rental_duration,
+		      rental_rate,
+		      length,
+		      replacement_cost,
+		      rating,
+		      last_update,
+		      special_features,
+		      fulltext,
+       		COUNT(*)
+FROM film
+GROUP BY 	Film_id,
+		      title,
+		      description,
+       		release_year,
+       		language_id,
+       		rental_duration,
+		      rental_rate,
+		      length,
+		      replacement_cost,
+		      rating,
+		      last_update,
+		      special_features,
+		      fulltext
+HAVING COUNT(*) > 1;
+
+All counts were 1 so there was no duplicate data in this precise table. 
+
+Then I checked for missing and inconsistent data as follows: 
+
+SELECT *
+FROM film
+
+The result was: 1000
+
+Then
+
+SELECT DISTINCT title
+FROM film
+
+The result was: 1000
+
+So all records were distinct. 
+
+I checked the first and last 10 rows for inconsistencies and didn'd find any. 
+If I had found inconsistencies, I would have:
+
+  1) tried to find the source and get that information
+	2) if no success with that, leave the column out  
+	3) if I don’t want to leave the column out, impute values with estimates 
+
+
+To summarise the data in the film table I used:
+
+SELECT
+		MIN (rental_rate),
+		MAX (rental_rate),
+		AVG (rental_rate),
+		COUNT (rental_rate)
+FROM film;
+
+and
+
+SELECT mode() WITHIN GROUP (ORDER BY rating)
+FROM film;
+
+
