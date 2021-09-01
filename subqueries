@@ -1,14 +1,13 @@
 Here's a query with a subquery I wrote to find the average total amount paid by customers in specific cities
 
 SELECT	AVG (total_amount_paid.total_amount_paid)
-FROM
-		    (SELECT 		
-			    A. customer_id AS customer_number,
-			    B. first_name,
-			    B. last_name,
-			    D. city,
-			    E. country,
-			    SUM (amount) AS total_amount_paid
+FROM	(SELECT 		
+			A. customer_id AS customer_number,
+			B. first_name,
+			B. last_name,
+			D. city,
+			E. country,
+			SUM (amount) AS total_amount_paid
     FROM 		payment A
     INNER JOIN 		customer B ON A.customer_id = B.customer_id
     INNER JOIN 		address C ON B.address_id = C.address_id
